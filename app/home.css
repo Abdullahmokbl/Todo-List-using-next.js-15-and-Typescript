@@ -1,0 +1,260 @@
+:root {
+  --primary: #2563eb;
+  --danger: #dc2626;
+  --background: #f8fafc;
+  --text: #1e293b;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.5;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  min-height: 100vh;
+  padding: 2rem;
+  color: var(--text);
+}
+
+.todo-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: var(--primary);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.input-section {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+#taskInput {
+  flex: 1;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+#taskInput:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+#addButton {
+  padding: 1rem 2rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#addButton:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+#addButton:active {
+  transform: translateY(0);
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow);
+  animation: slideIn 0.3s ease forwards;
+  transition: all 0.2s ease;
+}
+
+.task-item:hover {
+  transform: translateX(5px);
+}
+.task-checkbox-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.task-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: relative;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #94a3b8;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.task-checkbox-label:hover .checkmark {
+  border-color: var(--primary);
+}
+
+.task-checkbox:checked ~ .checkmark {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.checkmark::after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Custom checkmark animation */
+@keyframes checkmark {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.task-checkbox:checked ~ .checkmark::after {
+  display: block;
+  animation: checkmark 0.2s ease-out;
+}
+
+.task-text {
+  flex: 1;
+  font-size: 1.1rem;
+  margin: 0 1.5rem 0 0.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.task-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0%;
+  height: 2px;
+  background-color: var(--text);
+  transition: all 0.3s ease;
+  transform: translateY(-50%);
+}
+
+.task-text.completed {
+  color: #64748b;
+}
+
+.task-text.completed::after {
+  width: 100%;
+  background-color: #64748b;
+}
+
+.delete-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--danger);
+  color: white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.delete-btn:hover {
+  background: #b91c1c;
+  transform: rotate(90deg);
+}
+
+.delete-btn::before,
+.delete-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 2px;
+  background: currentColor;
+}
+
+.delete-btn::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.delete-btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 1rem;
+  }
+
+  .todo-container {
+    padding: 1.5rem;
+    border-radius: 1rem;
+  }
+
+  .input-section {
+    flex-direction: column;
+  }
+
+  #addButton {
+    width: 100%;
+  }
+}
